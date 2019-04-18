@@ -6,7 +6,8 @@ test-index: target/test-index.xml;name="app Test"
 
 -runproperties: \
 	osgi.console=,\
-	osgi.console.enable.builtin=false
+	osgi.console.enable.builtin=false,\
+	osgi.signedcontent.support=trust
 
 -runrequires.debug: osgi.identity;filter:='(osgi.identity=org.apache.felix.webconsole)',\
  osgi.identity;filter:='(osgi.identity=org.apache.felix.webconsole.plugins.ds)',\

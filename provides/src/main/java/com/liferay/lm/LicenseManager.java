@@ -17,6 +17,9 @@ import org.osgi.framework.wiring.BundleWire;
 import org.osgi.framework.wiring.BundleWiring;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.condpermadmin.ConditionalPermissionAdmin;
+import org.osgi.service.condpermadmin.ConditionalPermissionInfo;
+import org.osgi.service.condpermadmin.ConditionalPermissionUpdate;
 import org.osgi.service.log.Logger;
 import org.osgi.service.log.LoggerFactory;
 
@@ -42,7 +45,7 @@ public class LicenseManager {
 	@Reference(service = LoggerFactory.class)
 	private Logger _logger;
 
-	public void addLicense() {
+	public void addLicense() {		
 		Properties properties = new Properties();
 		
 		properties.put("Bundle-SymbolicName", "license");
@@ -75,6 +78,7 @@ public class LicenseManager {
 
 			Bundle licenseBundle = bundleContext.installBundle("/tmp/license.jar", fileInputStream);
 			
+			
 			_licenseBundleId = licenseBundle.getBundleId();
 
 			_logger.debug("Installed license bundle id {}", _licenseBundleId);
@@ -84,6 +88,14 @@ public class LicenseManager {
 			licenseBundle.start();
 
 			_logger.debug("Started bundle id {}", _licenseBundleId);
+			
+			System.out.println("Started bundle id " + _licenseBundleId);
+			System.out.println("Started bundle id " + _licenseBundleId);
+			
+			ConditionalPermissionAdmin cpa = bundleContext.getService(bundleContext.getServiceReference(ConditionalPermissionAdmin.class));
+			ConditionalPermissionUpdate update = cpa.newConditionalPermissionUpdate();
+			List<ConditionalPermissionInfo> infos = update.getConditionalPermissionInfos();
+			System.out.println(infos);
 		}
 		catch (Exception e) {
 			_logger.error(e.getMessage());
