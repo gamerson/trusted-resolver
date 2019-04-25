@@ -22,6 +22,7 @@
 		<module>trusted.resolver.app</module>
 		<module>trusted.resolver.hook</module>
 		<module>trusted.resolver.license.provider</module>
+		<module>trusted.resolver.license.provider.fake</module>
 		<module>trusted.resolver.requires.license</module>
 	</modules>
 

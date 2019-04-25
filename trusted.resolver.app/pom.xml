@@ -24,6 +24,11 @@
 		</dependency>
 		<dependency>
 			<groupId>com.liferay</groupId>
+			<artifactId>trusted.resolver.license.provider.fake</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.liferay</groupId>
 			<artifactId>trusted.resolver.requires.license</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
