@@ -7,7 +7,9 @@
 	slf4j.api;version='[1.7.25,1.7.26)'
 
 -runee: JavaSE-1.8
+
 -runfw: org.eclipse.osgi
+
 -runpath: com.liferay.trusted.resolver.hook
 
 -resolve.effective: active
@@ -17,6 +19,5 @@
 	hook.configurators=com.liferay.trusted.resolver.hook.LMHookConfigurator
 
 -runrequires: osgi.identity;filter:='(osgi.identity=com.liferay.trusted.resolver.license.provider)'
-	
 
--standalone: true
+-standalone: target/index.xml;name="app"

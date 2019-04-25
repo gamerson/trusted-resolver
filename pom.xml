@@ -29,17 +29,17 @@
 		<dependencies>
 			<dependency>
 				<groupId>org.osgi.enroute</groupId>
-				<artifactId>osgi-api</artifactId>
+				<artifactId>enterprise-api</artifactId>
 				<version>7.0.0</version>
 				<type>pom</type>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.osgi.enroute</groupId>
-				<artifactId>enterprise-api</artifactId>
+				<artifactId>debug-bundles</artifactId>
 				<version>7.0.0</version>
 				<type>pom</type>
-				<scope>provided</scope>
+				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.osgi.enroute</groupId>
@@ -50,10 +50,10 @@
 			</dependency>
 			<dependency>
 				<groupId>org.osgi.enroute</groupId>
-				<artifactId>debug-bundles</artifactId>
+				<artifactId>osgi-api</artifactId>
 				<version>7.0.0</version>
 				<type>pom</type>
-				<scope>test</scope>
+				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.osgi.enroute</groupId>

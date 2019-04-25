@@ -10,46 +10,6 @@
 
 	<artifactId>trusted.resolver.app</artifactId>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.osgi.enroute</groupId>
-				<artifactId>osgi-api</artifactId>
-				<version>7.0.0</version>
-				<type>pom</type>
-				<scope>provided</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.osgi.enroute</groupId>
-				<artifactId>enterprise-api</artifactId>
-				<version>7.0.0</version>
-				<type>pom</type>
-				<scope>provided</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.osgi.enroute</groupId>
-				<artifactId>impl-index</artifactId>
-				<version>7.0.0</version>
-				<type>pom</type>
-				<scope>runtime</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.osgi.enroute</groupId>
-				<artifactId>debug-bundles</artifactId>
-				<version>7.0.0</version>
-				<type>pom</type>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.osgi.enroute</groupId>
-				<artifactId>test-bundles</artifactId>
-				<version>7.0.0</version>
-				<type>pom</type>
-				<scope>test</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
 	<dependencies>
 		<dependency>
 			<groupId>com.liferay</groupId>
@@ -69,6 +29,16 @@
 		</dependency>
 		<dependency>
 			<groupId>org.osgi.enroute</groupId>
+			<artifactId>debug-bundles</artifactId>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi.enroute</groupId>
+			<artifactId>impl-index</artifactId>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi.enroute</groupId>
 			<artifactId>osgi-api</artifactId>
 			<type>pom</type>
 		</dependency>
@@ -82,30 +52,20 @@
 			</plugin>
 			<plugin>
 				<groupId>biz.aQute.bnd</groupId>
+				<artifactId>bnd-indexer-maven-plugin</artifactId>
+				<configuration>
+					<includeJar>true</includeJar>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>biz.aQute.bnd</groupId>
 				<artifactId>bnd-resolver-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<configuration>
-							<bndruns>
-								<bndrun>app.bndrun</bndrun>
-							</bndruns>
-							<includeDependencyManagement>true</includeDependencyManagement>
-						</configuration>
-					</execution>
-					<execution>
-						<id>debug</id>
-						<phase>package</phase>
-						<goals>
-							<goal>resolve</goal>
-						</goals>
-						<configuration>
-							<bndruns>
-								<bndrun>debug.bndrun</bndrun>
-							</bndruns>
-							<includeDependencyManagement>true</includeDependencyManagement>
-						</configuration>
-					</execution>
-				</executions>
+				<configuration>
+					<bndruns>
+						<bndrun>app.bndrun</bndrun>
+						<bndrun>debug.bndrun</bndrun>
+					</bndruns>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>biz.aQute.bnd</groupId>
