@@ -87,7 +87,6 @@ public class LicenseProvider {
 			
 			Bundle bundle = FrameworkUtil.getBundle(LicenseProvider.class);
 
-			
 			BundleContext bundleContext = bundle.getBundleContext();
 			
 			FileInputStream fileInputStream = new FileInputStream(licenseFile);

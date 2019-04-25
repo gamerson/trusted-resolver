@@ -26,43 +26,33 @@ import org.osgi.framework.hooks.resolver.ResolverHook;
 import org.osgi.framework.wiring.BundleCapability;
 import org.osgi.framework.wiring.BundleRequirement;
 import org.osgi.framework.wiring.BundleRevision;
+import org.osgi.resource.Capability;
 
 /**
  * @author Gregory Amerson
  */
-public class LMResolverHook implements ResolverHook {
+public class TrustedResolverHook implements ResolverHook {
 
 	@Override
 	public void end() {
-		System.out.println("end");
 	}
 
 	@Override
 	public void filterMatches(BundleRequirement requirement, Collection<BundleCapability> candidates) {
-		System.out.println(requirement);
 	}
 
 	@Override
 	public void filterResolvable(Collection<BundleRevision> candidates) {
-		Collection<BundleRevision> toRemove =
-			candidates.stream().filter(this::_shouldFilter).collect(Collectors.toSet());
-
-		candidates.removeAll(toRemove);
-
-		Collection<BundleRevision> notSigned =
-			candidates.stream().filter(this::_requiresLiferaySignature).filter(this::_missingLiferaySignature).collect(Collectors.toSet());
-
-		candidates.removeAll(notSigned);
+		candidates.removeAll(
+			candidates.stream().filter(this::_requiresTrust).filter(this::_notTrusted).collect(Collectors.toSet()));
 	}
 
 	@Override
 	public void filterSingletonCollisions(BundleCapability singleton,
 			Collection<BundleCapability> collisionCandidates) {
-
-		System.out.println(singleton);
 	}
 
-	private boolean _missingLiferaySignature(BundleRevision bundleRevision) {
+	private boolean _notTrusted(BundleRevision bundleRevision) {
 		Bundle bundle = bundleRevision.getBundle();
 
 		
@@ -76,18 +66,21 @@ public class LMResolverHook implements ResolverHook {
 		return false;
 	}
 
-	private boolean _requiresLiferaySignature(BundleRevision bundleRevision) {
+	private boolean _requiresTrust(BundleRevision bundleRevision) {
 		String bsn = bundleRevision.getSymbolicName();
 		
 
-		if (bsn.startsWith("com.liferay.lm.requires")) {
+		if (bsn.contains("requires.license")) {
 			return true;
 		}
 		
-		return false;
-	}
+		List<Capability> capabilities = bundleRevision.getCapabilities("dxp-license");
+		
 
-	private boolean _shouldFilter(BundleRevision bundleRevision) {
+		if (capabilities.size() > 0) {
+			return true;
+		}
+		
 		return false;
 	}
 

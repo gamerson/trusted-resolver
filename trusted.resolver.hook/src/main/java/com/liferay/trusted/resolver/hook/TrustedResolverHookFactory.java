@@ -23,14 +23,14 @@ import org.osgi.framework.wiring.BundleRevision;
 /**
  * @author Gregory Amerson
  */
-public class LMResolverHookFactory implements ResolverHookFactory {
+public class TrustedResolverHookFactory implements ResolverHookFactory {
 
-	public LMResolverHookFactory() {
+	public TrustedResolverHookFactory() {
 	}
 
 	@Override
 	public ResolverHook begin(Collection<BundleRevision> triggers) {
-		return new LMResolverHook();
+		return new TrustedResolverHook();
 	}
 
 	public void close() {

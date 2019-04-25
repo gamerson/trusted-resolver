@@ -26,7 +26,7 @@ import org.osgi.framework.hooks.resolver.ResolverHookFactory;
 /**
  * @author Gregory Amerson
  */
-public class LMHookConfigurator implements ActivatorHookFactory, BundleActivator, HookConfigurator {
+public class TrustedResolverHookConfigurator implements ActivatorHookFactory, BundleActivator, HookConfigurator {
 
 	@Override
 	public void addHooks(HookRegistry hookRegistry) {
@@ -40,7 +40,7 @@ public class LMHookConfigurator implements ActivatorHookFactory, BundleActivator
 
 	@Override
 	public void start(BundleContext context) throws Exception {
-		_lmResolverHookFactory = new LMResolverHookFactory();
+		_lmResolverHookFactory = new TrustedResolverHookFactory();
 
 		_sr = context.registerService(ResolverHookFactory.class, _lmResolverHookFactory, null);
 	}
@@ -54,7 +54,7 @@ public class LMHookConfigurator implements ActivatorHookFactory, BundleActivator
 		_lmResolverHookFactory.close();
 	}
 
-	private LMResolverHookFactory _lmResolverHookFactory;
+	private TrustedResolverHookFactory _lmResolverHookFactory;
 	private ServiceRegistration<ResolverHookFactory> _sr;
 
 }

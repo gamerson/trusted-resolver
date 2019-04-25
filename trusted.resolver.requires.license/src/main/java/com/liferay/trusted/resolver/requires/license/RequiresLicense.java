@@ -26,14 +26,12 @@ public class RequiresLicense {
 	
 	@Activate
 	public void activated() {
-		System.out.println("I am now activated.");
+		System.out.println("RequiresLicense: I am now activated.");
 	}
-
-	
 
 	@Deactivate
 	public void deactivated() {
-		System.out.println("I am now de-activated.");
+		System.out.println("RequiresLicense: I am now de-activated.");
 	}
 
 	

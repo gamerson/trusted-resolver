@@ -9,7 +9,8 @@
 	org.apache.felix.gogo.runtime;version='[1.0.10,1.0.11)',\
 	org.apache.felix.gogo.shell;version='[1.0.0,1.0.1)',\
 	org.apache.felix.scr;version='[2.1.10,2.1.11)',\
-	slf4j.api;version='[1.7.25,1.7.26)'
+	slf4j.api;version='[1.7.25,1.7.26)',\
+	com.liferay.trusted.resolver.requires.license;version='[1.0.0,1.0.1)'
 
 -standalone: ${index},target/test-index.xml;name="app Test"
 
