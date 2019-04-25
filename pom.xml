@@ -3,62 +3,23 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.liferay.lm</groupId>
-    <artifactId>lm</artifactId>
+    <groupId>com.liferay</groupId>
+    <artifactId>trusted-resolver</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-
-    <description>The lm application - built using OSGi enRoute R7</description>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <bnd.version>4.3.0-SNAPSHOT</bnd.version>
+        <bnd.version>4.2.0</bnd.version>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>OSGi</id>
-            <name>OSGi public binaries</name>
-            <url>https://oss.sonatype.org/content/groups/osgi</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>Apache Snapshots</id>
-            <url>https://repository.apache.org/content/groups/snapshots/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>Bnd Snapshots</id>
-            <name>Bnd Latest build</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
     <modules>
-        <module>provides</module>
-        <module>requires</module>
-        <module>app</module>
+        <module>trusted.resolver.app</module>
+        <module>trusted.resolver.hook</module>
+        <module>trusted.resolver.license.provider</module>
+        <module>trusted.resolver.requires.license</module>
     </modules>
 
     <dependencyManagement>
@@ -66,21 +27,21 @@
             <dependency>
                 <groupId>org.osgi.enroute</groupId>
                 <artifactId>osgi-api</artifactId>
-                <version>7.0.1-SNAPSHOT</version>
+                <version>7.0.0</version>
                 <type>pom</type>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.osgi.enroute</groupId>
                 <artifactId>enterprise-api</artifactId>
-                <version>7.0.1-SNAPSHOT</version>
+                <version>7.0.0</version>
                 <type>pom</type>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.osgi.enroute</groupId>
                 <artifactId>impl-index</artifactId>
-                <version>7.0.1-SNAPSHOT</version>
+                <version>7.0.0</version>
                 <type>pom</type>
                 <scope>runtime</scope>
             </dependency>
@@ -94,7 +55,7 @@
             <dependency>
                 <groupId>org.osgi.enroute</groupId>
                 <artifactId>test-bundles</artifactId>
-                <version>7.0.1-SNAPSHOT</version>
+                <version>7.0.0</version>
                 <type>pom</type>
                 <scope>test</scope>
             </dependency>

@@ -1,0 +1,1 @@
+Fragment-Host: org.eclipse.osgi; bundle-version="[3.13,4.0)"; extension:=framework
