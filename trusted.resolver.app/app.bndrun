@@ -1,16 +1,22 @@
-index: target/index.xml;name="app"
+-runbundles: \
+	biz.aQute.bndlib;version='[4.2.0,4.2.1)',\
+	ch.qos.logback.classic;version='[1.2.3,1.2.4)',\
+	ch.qos.logback.core;version='[1.2.3,1.2.4)',\
+	com.liferay.trusted.resolver.license.provider;version='[1.0.0,1.0.1)',\
+	org.apache.felix.scr;version='[2.1.10,2.1.11)',\
+	slf4j.api;version='[1.7.25,1.7.26)'
 
--standalone: ${index}
-
--runrequires: osgi.identity;filter:='(osgi.identity=com.liferay.trusted.resolver.license.provider)'
-	
--runfw: org.eclipse.osgi
 -runee: JavaSE-1.8
+-runfw: org.eclipse.osgi
+-runpath: com.liferay.trusted.resolver.hook
+
+-resolve.effective: active
 
 -runproperties: \
 	osgi.signedcontent.support=trust,\
 	hook.configurators=com.liferay.trusted.resolver.hook.LMHookConfigurator
 
--runpath: com.liferay.trusted.resolver.hook
+-runrequires: osgi.identity;filter:='(osgi.identity=com.liferay.trusted.resolver.license.provider)'
+	
 
--resolve.effective: active
+-standalone: true

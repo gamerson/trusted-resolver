@@ -1,1 +1,3 @@
-Require-Capability: dxp-license;product="Liferay Commerce"
+Require-Capability:\
+	dxp-license;\
+		product="Liferay Commerce"

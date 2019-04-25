@@ -1,7 +1,28 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
 package com.liferay.trusted.resolver.license.provider;
+
+import aQute.bnd.header.Attrs;
+import aQute.bnd.header.Parameters;
+import aQute.bnd.osgi.Builder;
+import aQute.bnd.osgi.Jar;
+import aQute.bnd.osgi.Processor;
 
 import java.io.File;
 import java.io.FileInputStream;
+
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -23,30 +44,23 @@ import org.osgi.service.condpermadmin.ConditionalPermissionUpdate;
 import org.osgi.service.log.Logger;
 import org.osgi.service.log.LoggerFactory;
 
-import aQute.bnd.header.Attrs;
-import aQute.bnd.header.Parameters;
-import aQute.bnd.osgi.Builder;
-import aQute.bnd.osgi.Jar;
-import aQute.bnd.osgi.Processor;
-
+/**
+ * @author Gregory Amerson
+ */
 @Component(
 	immediate = true,
-	service = LicenseManager.class, 
+	service = LicenseProvider.class, 
 	property = {
 		"osgi.command.scope=lm",
 		"osgi.command.function=addLicense",
 		"osgi.command.function=removeLicense",
 	}
 )
-public class LicenseManager {
+public class LicenseProvider {
 	
-	private static long _licenseBundleId = -1;
-	
-	@Reference(service = LoggerFactory.class)
-	private Logger _logger;
-
 	public void addLicense() {		
 		Properties properties = new Properties();
+
 		
 		properties.put("Bundle-SymbolicName", "licenseXXXXadrdX");
 
@@ -65,12 +79,14 @@ public class LicenseManager {
 			Jar licenseJar = builder.build();
 
 			File licenseFile = new File("/tmp/license.jar");
+
 			
 			licenseJar.write(licenseFile);
 			
 			_logger.debug("licenseJar " + licenseJar);
 			
-			Bundle bundle = FrameworkUtil.getBundle(LicenseManager.class);
+			Bundle bundle = FrameworkUtil.getBundle(LicenseProvider.class);
+
 			
 			BundleContext bundleContext = bundle.getBundleContext();
 			
@@ -79,6 +95,7 @@ public class LicenseManager {
 			System.out.println("Installing liense bundle.");
 			
 			Bundle licenseBundle = bundleContext.installBundle("/tmp/license.jar", fileInputStream);
+
 			
 			_licenseBundleId = licenseBundle.getBundleId();
 
@@ -94,7 +111,9 @@ public class LicenseManager {
 			System.out.println("Started bundle id " + _licenseBundleId);
 			
 			ConditionalPermissionAdmin cpa = bundleContext.getService(bundleContext.getServiceReference(ConditionalPermissionAdmin.class));
+
 			ConditionalPermissionUpdate update = cpa.newConditionalPermissionUpdate();
+
 			List<ConditionalPermissionInfo> infos = update.getConditionalPermissionInfos();
 			System.out.println(infos);
 		}
@@ -105,16 +124,22 @@ public class LicenseManager {
 		}
 	}
 
+	
+
 	public void removeLicense() {
 		_logger.debug("Removing bundle id {}", _licenseBundleId);
 
-		Bundle bundle = FrameworkUtil.getBundle(LicenseManager.class);
+		Bundle bundle = FrameworkUtil.getBundle(LicenseProvider.class);
+
 		
 		BundleContext bundleContext = bundle.getBundleContext();
+
 		
 		Bundle licenseBundle = bundleContext.getBundle(_licenseBundleId);
+
 		
 		BundleWiring bundleWiring = licenseBundle.adapt(BundleWiring.class);
+
 		
 		List<BundleWire> lmProvidedWires = bundleWiring.getProvidedWires("lm");
 		
@@ -143,18 +168,24 @@ public class LicenseManager {
 						b.update();
 						_logger.debug("Updated requiring bundle id {}", b.getBundleId());
 					} 
-					catch (BundleException e) {
-						_logger.error(e.getMessage());
+					catch (BundleException be) {
+						_logger.error(be.getMessage());
 
-						e.printStackTrace();
+						be.printStackTrace();
 					}
 				}
 			);
 		} 
-		catch (BundleException e) {
-			_logger.error(e.getMessage());
+		catch (BundleException be) {
+			_logger.error(be.getMessage());
 			
-			e.printStackTrace();
+			be.printStackTrace();
 		}
 	}
+
+	private static long _licenseBundleId = -1;
+
+	@Reference(service = LoggerFactory.class)
+	private Logger _logger;
+
 }

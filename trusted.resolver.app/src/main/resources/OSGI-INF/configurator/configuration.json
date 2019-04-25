@@ -1,22 +1,5 @@
 {
-    // Global Settings
-    ":configurator:resource-version" : 1,
-    ":configurator:symbolic-name" : "com.liferay.trusted.resolver.app.config",
-    ":configurator:version" : "1.0.0",
-    
-    /*
-    // This defines a configuration
-    
-    "my.configuration.pid": {
-           "fizz": "buzz", 
-           "foo": "bar"},
-    */
-    
-    /*
-    // This defines a factory configuration
-    
-    "my.factory.configuration.pid~fizzbuzz": {
-           "fizz": "buzz", 
-           "foo": "bar"},
-    */
+	":configurator:resource-version" : 1,
+	":configurator:symbolic-name" : "com.liferay.trusted.resolver.app.config",
+	":configurator:version" : "1.0.0"
 }
