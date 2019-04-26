@@ -1,1 +1,3 @@
-Provide-Capability: dxp-license
+Provide-Capability:\
+	dxp-license;\
+		product="Liferay Commerce"

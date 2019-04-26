@@ -14,6 +14,7 @@
 
 package com.liferay.trusted.resolver.hook;
 
+import java.security.Principal;
 import java.security.cert.X509Certificate;
 
 import java.util.Collection;
@@ -22,11 +23,15 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.hooks.resolver.ResolverHook;
 import org.osgi.framework.wiring.BundleCapability;
 import org.osgi.framework.wiring.BundleRequirement;
 import org.osgi.framework.wiring.BundleRevision;
 import org.osgi.resource.Capability;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Gregory Amerson
@@ -55,16 +60,29 @@ public class TrustedResolverHook implements ResolverHook {
 	private boolean _notTrusted(BundleRevision bundleRevision) {
 		Bundle bundle = bundleRevision.getBundle();
 
-		
-		Map<X509Certificate, List<X509Certificate>> certs = bundle.getSignerCertificates(Bundle.SIGNERS_TRUSTED);
-		
+		Map<X509Certificate, List<X509Certificate>> certificates = bundle.getSignerCertificates(Bundle.SIGNERS_ALL);
 
-		if (certs.size() == 0) {
+		if (certificates.size() == 0) {
+			_logger.info("Bundle {} must be signed to be trusted.", bundle.getSymbolicName());
+
 			return true;
 		}
 		
-		return false;
+		Collection<List<X509Certificate>> signers = certificates.values();
+		
+		List<String> subjects = signers.stream().flatMap(Collection::stream).map(X509Certificate::getSubjectDN).map(Principal::getName).collect(Collectors.toList());
+		
+		boolean trusted = FrameworkUtil.matchDistinguishedNameChain("cn=*, ou=*, o=Liferay, l=*, st=*, c=*", subjects);
+		
+
+		if (!trusted) {
+			_logger.info("Bundle {} signature is invalid.", bundle.getSymbolicName());
+		}
+		
+		return !trusted;
 	}
+
+	
 
 	private boolean _requiresTrust(BundleRevision bundleRevision) {
 		String bsn = bundleRevision.getSymbolicName();
@@ -83,5 +101,9 @@ public class TrustedResolverHook implements ResolverHook {
 		
 		return false;
 	}
+
+	
+
+	private static final Logger _logger = LoggerFactory.getLogger(TrustedResolverHook.class);
 
 }

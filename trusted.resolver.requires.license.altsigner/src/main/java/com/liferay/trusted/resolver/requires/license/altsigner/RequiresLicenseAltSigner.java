@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.trusted.resolver.requires.license;
+package com.liferay.trusted.resolver.requires.license.altsigner;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -24,8 +24,8 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Gregory Amerson
  */
-@Component(service = RequiresLicense.class, immediate = true)
-public class RequiresLicense {
+@Component(service = RequiresLicenseAltSigner.class, immediate = true)
+public class RequiresLicenseAltSigner {
 	
 	@Activate
 	public void activated() {
@@ -39,7 +39,7 @@ public class RequiresLicense {
 		_logger.info("I am now de-activated.");
 	}
 
-	private static final Logger _logger = LoggerFactory.getLogger(RequiresLicense.class);
+private static final Logger _logger = LoggerFactory.getLogger(RequiresLicenseAltSigner.class);
 
 	
 }

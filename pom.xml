@@ -24,6 +24,7 @@
 		<module>trusted.resolver.license.provider</module>
 		<module>trusted.resolver.license.provider.fake</module>
 		<module>trusted.resolver.requires.license</module>
+		<module>trusted.resolver.requires.license.altsigner</module>
 	</modules>
 
 	<dependencyManagement>
