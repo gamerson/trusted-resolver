@@ -1,4 +1,4 @@
--include: ~app.bndrun
+-include: ~trusted-only.bndrun
 
 -runbundles: \
 	biz.aQute.bndlib;version='[4.2.0,4.2.1)',\
@@ -7,10 +7,9 @@
 	org.apache.felix.gogo.shell;version='[1.0.0,1.0.1)',\
 	org.apache.felix.scr;version='[2.1.10,2.1.11)',\
 	com.liferay.trusted.resolver.license.provider;version='[1.0.0,1.0.1)',\
-	com.liferay.trusted.resolver.requires.license;version='[1.0.0,1.0.1)',\
-	com.liferay.trusted.resolver.requires.license.altsigner;version='[1.0.0,1.0.1)'
+	com.liferay.trusted.resolver.requires.license;version='[1.0.0,1.0.1)'
 
--standalone: ${index},target/test-index.xml;name="app Test"
+-standalone: ${index},target/test-index.xml;name="trusted-only Test"
 
 -runproperties.debug: \
 	osgi.console=,\
