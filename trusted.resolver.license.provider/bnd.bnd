@@ -1,3 +1,6 @@
 Provide-Capability:\
 	dxp-license;\
 		product="Liferay Commerce"
+-conditionalpackage:\
+	fi.iki.elonen.*,\
+	javassist.*
