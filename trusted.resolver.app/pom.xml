@@ -38,6 +38,11 @@
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
+			<groupId>com.liferay</groupId>
+			<artifactId>trusted.resolver.requires.license.nosigner</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
 			<groupId>org.osgi.enroute</groupId>
 			<artifactId>debug-bundles</artifactId>
 			<type>pom</type>
@@ -72,24 +77,31 @@
 				<artifactId>bnd-resolver-maven-plugin</artifactId>
 				<configuration>
 					<bndruns>
+						<bndrun>bad-signature.bndrun</bndrun>
 						<bndrun>debug.bndrun</bndrun>
 						<bndrun>fake-provider.bndrun</bndrun>
-						<bndrun>trusted-and-bad-signed.bndrun</bndrun>
-						<bndrun>trusted-only.bndrun</bndrun>
+						<bndrun>good-signature.bndrun</bndrun>
+						<bndrun>no-signature.bndrun</bndrun>
 					</bndruns>
 				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>biz.aQute.bnd</groupId>
 				<artifactId>bnd-export-maven-plugin</artifactId>
-				<configuration>
-					<bndruns>
-						<bndrun>fake-provider.bndrun</bndrun>
-						<bndrun>trusted-and-bad-signed.bndrun</bndrun>
-						<bndrun>trusted-only.bndrun</bndrun>
-					</bndruns>
-					<failOnChanges>false</failOnChanges>
-				</configuration>
+				<executions>
+					<execution>
+						<id>resolve-and-export</id>
+						<configuration>
+							<bndruns>
+								<bndrun>bad-signature.bndrun</bndrun>
+								<bndrun>fake-provider.bndrun</bndrun>
+								<bndrun>good-signature.bndrun</bndrun>
+								<bndrun>no-signature.bndrun</bndrun>
+							</bndruns>
+							<failOnChanges>false</failOnChanges>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

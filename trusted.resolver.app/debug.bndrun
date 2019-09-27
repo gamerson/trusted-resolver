@@ -1,4 +1,4 @@
--include: ~trusted-only.bndrun
+-include: ~good-signature.bndrun
 
 -runbundles: \
 	biz.aQute.bndlib;version='[4.2.0,4.2.1)',\

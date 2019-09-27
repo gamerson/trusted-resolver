@@ -1,9 +1,9 @@
 -runbundles: \
 	biz.aQute.bndlib;version='[4.2.0,4.2.1)',\
-	com.liferay.trusted.resolver.requires.license;version='[1.0.0,1.0.1)',\
 	org.apache.felix.scr;version='[2.1.10,2.1.11)',\
 	com.liferay.trusted.resolver.license.provider;version='[1.0.0,1.0.1)',\
-	org.apache.felix.gogo.runtime;version='[1.0.10,1.0.11)'
+	org.apache.felix.gogo.runtime;version='[1.0.10,1.0.11)',\
+	com.liferay.trusted.resolver.requires.license.nosigner;version='[1.0.0,1.0.1)'
 
 -runee: JavaSE-1.8
 
@@ -25,6 +25,6 @@
 
 -runrequires: \
 	osgi.identity;filter:='(osgi.identity=com.liferay.trusted.resolver.license.provider)',\
-	osgi.identity;filter:='(osgi.identity=com.liferay.trusted.resolver.requires.license)'
+	osgi.identity;filter:='(osgi.identity=com.liferay.trusted.resolver.requires.license.nosigner)'
 
--standalone: target/index.xml;name="trusted-only"
+-standalone: target/index.xml;name="no-signature"
