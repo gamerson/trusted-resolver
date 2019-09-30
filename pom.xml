@@ -165,7 +165,6 @@ Bundle-SymbolicName: ${project.groupId}.${project.artifactId}
 					<artifactId>bnd-export-maven-plugin</artifactId>
 					<version>${bnd.version}</version>
 					<configuration>
-						<resolve>true</resolve>
 						<failOnChanges>true</failOnChanges>
 					</configuration>
 					<executions>
