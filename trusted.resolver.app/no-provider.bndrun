@@ -1,0 +1,29 @@
+-runblacklist: \
+	osgi.identity;filter:='(osgi.identity=com.liferay.trusted.resolver.license.provider)',\
+	osgi.identity;filter:='(osgi.identity=com.liferay.trusted.resolver.license.provider.fake)'
+
+-runbundles: \
+	com.liferay.trusted.resolver.requires.license;version='[1.0.0,1.0.1)',\
+	org.apache.felix.scr;version='[2.1.10,2.1.11)'
+
+-runee: JavaSE-1.8
+
+-runfw: org.eclipse.osgi
+
+-runpath: \
+	ch.qos.logback.classic,\
+	ch.qos.logback.core,\
+	com.liferay.trusted.resolver.hook,\
+	slf4j.api
+
+-resolve.effective: active
+
+-runproperties: \
+	hook.configurators=com.liferay.trusted.resolver.hook.TrustedResolverHookConfigurator,\
+	logback.configurationFile=file:${.}/../logback.xml,\
+	osgi.framework.keystore=file:${.}/../keystore.jks,\
+	osgi.signedcontent.support=trust
+
+-runrequires: osgi.identity;filter:='(osgi.identity=com.liferay.trusted.resolver.requires.license)'
+
+-standalone: target/index.xml;name="no-provider"

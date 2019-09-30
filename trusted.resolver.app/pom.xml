@@ -96,6 +96,7 @@
 								<bndrun>bad-signature.bndrun</bndrun>
 								<bndrun>fake-provider.bndrun</bndrun>
 								<bndrun>good-signature.bndrun</bndrun>
+								<bndrun>no-provider.bndrun</bndrun>
 								<bndrun>no-signature.bndrun</bndrun>
 							</bndruns>
 							<failOnChanges>false</failOnChanges>
